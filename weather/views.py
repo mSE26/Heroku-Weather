@@ -10,7 +10,7 @@ def index(request):
 
     cities = City.objects.all()
     posts = CityFake.objects.all()
-
+	
     if request.method == 'POST': 
         form = CityForm(request.POST) 
         form.save() 
@@ -31,20 +31,5 @@ def index(request):
         }
 
         weather_data.append(weather) 
-    context = {'weather_data' : weather_data, 'form' : form}
-	
+    context = {'weather_data' : weather_data, 'CityFake' : posts, 'form' : form}
     return render(request, 'weather/index.html', context)
-
-def fake(request):
-    posts = CityFake.objects.all()
-    weather_dataFake = []
-    for cityfake in posts:
-        weatherFake = {
-            'city' : cityfake,
-            'temperature' : 'temp',
-		    'description' : 'disc',
-			'icon' : 'qweasd'
-        }
-        weather_dataFake.append(weatherFake)
-    faketemp = {'weather_dataFake' : weather_dataFake}		
-    return render(request, 'weather/index.html', faketemp)
